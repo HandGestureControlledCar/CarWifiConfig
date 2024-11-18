@@ -2,6 +2,7 @@
 
 const char* ssid = "car";
 const char* password = "123456789";
+bool firstConnect = true;
 IPAddress local_ip(192,168,4,1);
 IPAddress gateway(192,168,4,1);
 IPAddress subnet(255,255,255,0);
@@ -25,6 +26,11 @@ void loop() {
   }
   
   if (persistentClient && persistentClient.available()) {
+    if(firstConnect){
+      Serial.println("Ready");
+      firstConnect = false;
+    }
+
     String data = persistentClient.readStringUntil('\n');
     data.trim();
     
